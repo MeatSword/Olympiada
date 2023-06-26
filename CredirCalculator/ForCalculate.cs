@@ -10,9 +10,9 @@ namespace CredirCalculator
 {
     public class ForCalculate
     {
-        double CreditAmount;
-        int CreditPeriod;
-        public double CreditRate
+        double creddAmm;
+        int credPeiod;
+        public double credRated
         {
             get
             {
@@ -27,9 +27,9 @@ namespace CredirCalculator
 
         public ForCalculate(double creditAmount, double creditRate, int creditPeriod)
         {
-            CreditAmount = creditAmount;
-            CreditRate = creditRate;
-            CreditPeriod = creditPeriod;
+            creddAmm = creditAmount;
+            credRated = creditRate;
+            credPeiod = creditPeriod;
 
         }
 
@@ -38,72 +38,68 @@ namespace CredirCalculator
 
         private string _sumMonthPay;
         private string _sumCredAmount;
-        private string _sumOverPay;
+        private string _sumOverPay; // ДЛЯ ДИФФ
 
         public DataGridView ANNUT(DataGridView dtg)
         {
             DataGridView dtgOver = dtg;
 
-            double monthPay = CreditAmount * (_credMonth / (1 - Math.Pow(1 + _credMonth, -CreditPeriod))); 
-            double sumCredAm = monthPay * CreditPeriod; 
-
-            _sumMonthPay = monthPay.ToString("N2"); 
-            _sumCredAmount = sumCredAm.ToString("N2"); 
-
-            double tempCreditAmount = CreditAmount;
+            double monthPay = creddAmm * (_credMonth / (1 - Math.Pow(1 + _credMonth, -credPeiod))); 
+            double sumCredAm = monthPay * credPeiod; 
+            double tempCreditAmount = creddAmm;
             double tempSummaryCreditAmount = sumCredAm;
             double tempItogPlus = 0;
 
-            for (int i = 1; i <= CreditPeriod; i++)
+            for (int i = 1; i <= credPeiod; i++)
             {
 
                 double percent = tempCreditAmount * _credMonth;
                 tempCreditAmount -= monthPay - percent;
                 tempSummaryCreditAmount -= monthPay;
 
-                if (i == CreditPeriod) tempItogPlus = tempCreditAmount;
+                if (i == credPeiod) tempItogPlus = tempCreditAmount;
                 dtgOver.Rows.Add(i, monthPay, monthPay - percent, percent, tempCreditAmount);
             }
 
-            _sumOverPay = (sumCredAm - CreditAmount + tempItogPlus).ToString("N2"); 
+            
             return dtgOver;
         }
         public DataGridView DIFF(DataGridView dtg)
         {
-            DataGridView dtShedule = dtg;
+            DataGridView dtgOver = dtg;
 
-            double mainPayment = CreditAmount / CreditPeriod;
-            double summaryCreditAmount = 0;
-            double summaryOverPayment = 0;
-            double tempCreditAmount = CreditAmount;
+            double mainPayment = creddAmm / credPeiod;
+            double sumcred = 0;
+            double sumover = 0;
+            double tmpcredam = creddAmm;
             double itogPlus = 0;
 
-            for (int i = 1; i <= CreditPeriod; i++)
+            for (int i = 1; i <= credPeiod; i++)
             {
                
-                double percent = tempCreditAmount * _credMonth;
+                double percent = tmpcredam * _credMonth;
                 double monthlyPayment = mainPayment + percent;
-                summaryCreditAmount += monthlyPayment;
-                summaryOverPayment += percent;
-                tempCreditAmount -= mainPayment;
+                sumcred += monthlyPayment;
+                sumover += percent;
+                tmpcredam -= mainPayment;
 
-                dtShedule.Rows.Add(i, monthlyPayment, mainPayment, percent, tempCreditAmount);
+                dtgOver.Rows.Add(i, monthlyPayment, mainPayment, percent, tmpcredam);
 
-                if (i == 1) _sumMonthPay = monthlyPayment.ToString("N2") + "...";
-                if (i == CreditPeriod)
+                if (i == 1) _sumMonthPay = monthlyPayment.ToString();
+                if (i == credPeiod)
                 {
-                    _sumMonthPay += monthlyPayment.ToString("N2");
-                    itogPlus += tempCreditAmount;
+                    _sumMonthPay += monthlyPayment.ToString();
+                    itogPlus += tmpcredam;
                 }
             }
 
-            _sumCredAmount = summaryCreditAmount.ToString("N2");
-            _sumOverPay = (summaryOverPayment + itogPlus).ToString("N2");
+            _sumCredAmount = sumcred.ToString();
+            _sumOverPay = (sumover + itogPlus).ToString();
 
 
 
 
-            return dtShedule;
+            return dtgOver;
         }
 
     }

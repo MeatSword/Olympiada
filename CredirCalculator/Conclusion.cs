@@ -14,7 +14,7 @@ namespace CredirCalculator
     public partial class Conclusion : Form
     {
 
-        double creditAmm=0;
+        double creditAmm = 0;
         ForCalculate fr;
         public Conclusion(double creditAmount, double creditRate, int creditPeriod, int type)
         {
@@ -42,34 +42,39 @@ namespace CredirCalculator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog();
-            save.Title = "Экспорт графика платежей";
-            save.Filter = "*.CSV-файл с разделителями |*.csv";
-            if (save.ShowDialog() == DialogResult.OK)
-                Export(save.FileName, ToDataTable(dtg_Main), creditAmm.ToString());
+           
+               Export( dtg_Main);
         }
-        void Export(string filename, DataTable dataTable,string creditAmount)
+        void Export( DataGridView dataTable)
         {
-            FileStream fs = null;
-            StreamWriter sw = null;
-            try
+            SaveFileDialog saveTableAsCSV = new SaveFileDialog();
+            saveTableAsCSV.Filter = "Документ CSV (*.csv) |*.csv";
+            saveTableAsCSV.Title = "Сохранить результат расчетов";
+            if (saveTableAsCSV.ShowDialog() == DialogResult.OK)
             {
-                fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
-                sw = new StreamWriter(fs, Encoding.Default);
-                sw.WriteLine(String.Join(";", dataTable.Columns[0].Caption, dataTable.Columns[1].Caption, dataTable.Columns[2].Caption, dataTable.Columns[3].Caption, dataTable.Columns[4].Caption));
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                    sw.WriteLine(String.Join(";", dataTable.Rows[i][0], dataTable.Rows[i][1], dataTable.Rows[i][2], dataTable.Rows[i][3], dataTable.Rows[i][4]));
-                sw.WriteLine(String.Join(";", "Итого", creditAmount));
+                try
+                {
+                    FileStream file = new FileStream(saveTableAsCSV.FileName, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(file, Encoding.Default);
+
+                    for (int i = 0; i < dataTable.RowCount; i++)
+                    {
+                        for (int j = 0; j < dataTable.ColumnCount; j++)
+                        {
+                            sw.Write(Convert.ToDouble(dataTable.Rows[i].Cells[j].Value));
+                            if (j < dataTable.ColumnCount - 1)
+                                sw.Write(";");
+                        }
+                        sw.WriteLine();
+                    }
+                    sw.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("Уже есть");
+                }
             }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            finally
-            {
-                sw?.Close();
-                fs?.Close();
-            }
+
         }
         private DataTable ToDataTable(DataGridView dataGridView)
         {
