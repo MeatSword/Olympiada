@@ -1,0 +1,12 @@
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\bin\Debug\CredirCalculator.exe.config
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\bin\Debug\CredirCalculator.exe
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\bin\Debug\CredirCalculator.pdb
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.csproj.AssemblyReference.cache
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.csproj.SuggestedBindingRedirects.cache
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.MainCalcul.resources
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.Properties.Resources.resources
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.csproj.GenerateResource.cache
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.csproj.CoreCompileInputs.cache
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.exe
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.pdb
+C:\Users\arthas\source\repos\CredirCalculator\CredirCalculator\obj\Debug\CredirCalculator.Conclusion.resources
